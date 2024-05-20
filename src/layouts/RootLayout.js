@@ -1,5 +1,4 @@
-import {NavLink, Outlet} from "react-router-dom";
-import Breadcrumbs from "../components/Breadcrumbs";
+import { Outlet} from "react-router-dom";
 
 function RootLayout() {
   return (
