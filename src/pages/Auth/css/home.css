@@ -1,0 +1,10 @@
+.o-page__card {
+    vertical-align: middle;
+    display: table-cell;
+}
+
+.o-page {
+    height: 100vh;
+    display: table;
+    margin: 0 auto;
+}
