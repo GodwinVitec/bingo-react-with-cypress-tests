@@ -1,6 +1,6 @@
 describe('App initialization', () => {
   context('Verify that the app starts with the login screen' , () => {
-    it.only('Visits the Home page', () => {
+    it.only('Verifies the Login Form', () => {
       cy.visit('/')
 
       cy.get('.home')
