@@ -11,24 +11,35 @@ import PrivateRouteLayout, {authorizeRoute} from "./layouts/PrivateRouteLayout";
 
 // Pages
 import NotFound from "./pages/NotFound";
-import Home from "./pages/Home";
+import Home, {checkToken} from "./pages/Home";
 import UnauthenticatedError from "./pages/Auth/UnauthenticatedError";
+import GeneralError from "./GeneralError";
+import Login, {login} from "./pages/Login";
+import Dashboard from "./pages/Dashboard";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path='/' element={<RootLayout />}>
+    <Route path='/' element={<RootLayout />} errorElement={<GeneralError />}>
       <Route
         index
         element={<Home/>}
+        loader={checkToken}
       />
 
       <Route
-        path='sales'
+        path='/login'
+        element={<Login />}
+        action={login}
+        errorElement={<GeneralError />}
+      />
+
+      <Route
+        path=''
         element={<PrivateRouteLayout />}
         loader={authorizeRoute}
         errorElement={<UnauthenticatedError />}
       >
-        <Route path='*' element={<NotFound />}/>
+        <Route path='dashboard' element={<Dashboard />}/>
       </Route>
       <Route path="*" element={<NotFound />}/>
     </Route>

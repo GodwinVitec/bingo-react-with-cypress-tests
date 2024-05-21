@@ -1,0 +1,7 @@
+{
+  "endpoints": {
+    "auth_user": "user",
+    "login": "login",
+    "logout": "logout"
+  }
+}

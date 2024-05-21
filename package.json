@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.7.0",
     "concurrently": "3.6.1",
+    "dotenv": "^16.4.5",
     "json-server": "^1.0.0-beta.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -17,14 +18,15 @@
   },
   "devDependencies": {
     "@cypress/react18": "^2.0.0",
-    "cypress": "^13.9.0"
+    "cypress": "^13.9.0",
+    "env-cmd": "^10.1.0"
   },
   "scripts": {
     "cypress": "./node_modules/.bin/cypress",
     "serve": "json-server -p 4000 -w ./data/db.json",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "env-cmd -f .env.local react-scripts start",
+    "build": "env-cmd -f .env.production react-scripts build",
+    "test": "env-cmd -f .env.development react-scripts test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
