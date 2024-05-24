@@ -1,4 +1,4 @@
-import {useRouteError} from "react-router-dom";
+import {Navigate, useRouteError} from "react-router-dom";
 
 export default function UnauthenticatedError() {
   const {message} = useRouteError()
@@ -6,6 +6,7 @@ export default function UnauthenticatedError() {
     <div>
       <h2>{message}</h2>
       <p>You are not authenticated to view this page.</p>
+      {/*<Navigate to={'/'} />*/}
     </div>
   )
 }

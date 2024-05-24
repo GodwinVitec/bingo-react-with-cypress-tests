@@ -1,43 +1,48 @@
-import {Form, Link} from "react-router-dom";
+import {Form, Link, redirect, useActionData} from "react-router-dom";
 import BingoSvg from "../images/Bingo.svg";
 
 //Styles
 import "../../src/css/neat.minc619.css";
 import "../pages/Auth/css/home.css"
 import "../../src/css/util.css"
+import {useMount} from "../hooks/useMount";
+import {API_URLS} from "../constants/api-endpoints";
+import axios from "axios";
 
 export default function Home() {
+
+  useMount(() => {
+    console.log('API BASE URL', process.env.REACT_APP_API_BASE_URL);
+  });
+
   return (
-    <div className="o-page o-page--center home">
-      <div className="o-page__card">
-        <div className="c-card c-card--center">
-          <img src={`${BingoSvg}`} alt="Bingo" className="w-120"/>
-          <Form action="/" method="POST">
-            <div className="c-field">
-              <label className="c-field__label">Email Address</label>
-              <input className="c-input u-mb-small" type="email" name="user" placeholder="e.g. adam@sandler.com"
-                     required/>
-            </div>
-
-            <div className="c-field">
-              <label className="c-field__label">Password</label>
-              <input className="c-input u-mb-small" type="password" name="pass" placeholder="********" required/>
-              <input type="hidden" name="role" value="Partner"/>
-            </div>
-
-            <button type="submit" value="login" className="c-btn c-btn--fullwidth c-btn--info">Login</button>
-          </Form>
-          <div className="ss_btn d-flex mt-10 form-footer">
-            <div className="u-text-left mr-auto">
-              <Link to="">Forgot Password?</Link>
-            </div>
-            <div className="u-text-right">
-              <Link to="">Create new account?</Link>
-            </div>
-          </div>
-          <div className='p-10'></div>
-        </div>
-      </div>
-    </div>
+    <></>
   )
+}
+
+export async function checkToken() {
+  const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
+  const auth_url = `${apiBaseUrl}/${API_URLS.auth.auth_user}`;
+  const token = localStorage.getItem('auth_token');
+
+  if(!token || token === '') {
+    return redirect('/login');
+  }
+
+  const res = await axios.get(auth_url, {
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }
+  }).catch((err) => {
+    console.log(err);
+    return redirect('/login');
+  });
+
+  console.log(res);
+
+  if(res.status !== 200) {
+    return redirect('/login');
+  }
+
+  return redirect('/dashboard');
 }
